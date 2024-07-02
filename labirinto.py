@@ -120,6 +120,10 @@ for generation in range(1000):
         elif move == 3 and y < COLS - 1 and maze[x][y + 1] == 0:  # Direita
             y += 1
         pygame.draw.rect(screen, BLUE, (MAZE_X + y * CELL_SIZE, MAZE_Y + x * CELL_SIZE, CELL_SIZE, CELL_SIZE))
+    
+    if score == -1:
+        pygame.image.save(screen, 'captura_fim_labirinto.png')
+        break
 
     pygame.display.flip()
     pygame.time.wait(300)
