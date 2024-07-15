@@ -21,10 +21,7 @@ for generation in range(1000):
 
     for _ in range(50):
         parent1, parent2 = random.choices(new_population, k=2)
-        # DÚVIDA: FAZ MAIS SENTIDO APLICAR MUTAÇÃO EM TODA CRIANÇA (NOVA POP) (IDEIA 1) OU APLICAR MUTAÇÃO SOMENTE QUANDO ELA NÃO SE ADAPTAR? (IDEIA 2)
-        child = crossover(parent1, parent2) #child = mutate(crossover(parent1, parent2), mutation_rate) # MUDAR PARA ESTE CHILD SE A IDEIA 1 FOR A CORRETA
-        if mutation_rate == 0.05:
-            child = mutate(crossover(parent1, parent2), mutation_rate) # REMOVER ESTE IF CASO A IDEIA 1 SEJA A CORRETA
+        child = mutate(crossover(parent1, parent2), mutation_rate)
         new_population.append(child)
 
     population = new_population
@@ -41,11 +38,11 @@ for generation in range(1000):
 
     # Verifica se o score se repetiu 4 vezes (evitar estagnação)
     if len(last_scores) == 4 and last_scores.count(score) == 4:
-        print("Score repetido 4 vezes, aplicando punição (mutação dos filhos)")
         # Aumenta a taxa de mutação temporariamente para diversificar a população (Diversificação Forçada)
-        mutation_rate = 0.05
+        mutation_rate = mutation_rate + 0.01
+        print(f"Score repetido 4 vezes, aumentando taxa de mutação para: {mutation_rate}")
     else:
-        mutation_rate = 0.01 # MANTER ESTE ELSE SOMENTE SE A IDEIA 1 PREVALECER, PRECISO ESCLARECER ESTA DÚVIDA
+        mutation_rate = 0.01
 
     # Desenhar o melhor caminho
     screen.fill(BLACK)
